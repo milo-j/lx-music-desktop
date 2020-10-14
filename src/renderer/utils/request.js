@@ -7,7 +7,7 @@ import { deflateRaw } from 'zlib'
 import { getProxyInfo } from './index'
 // import fs from 'fs'
 
-const request = (url, options, callback) => {
+export const request = (url, options, callback) => {
   let data
   if (options.body) {
     data = options.body
@@ -21,6 +21,12 @@ const request = (url, options, callback) => {
     options.json = false
   }
   options.response_timeout = options.timeout
+
+  if (options.type === 'mg') {
+    delete options.body
+    delete options.type
+    delete options.json
+  }
   return needle.request(options.method || 'get', url, data, options, (err, resp, body) => {
     if (!err) {
       body = resp.body = resp.raw.toString()

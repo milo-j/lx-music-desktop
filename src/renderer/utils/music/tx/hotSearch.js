@@ -14,7 +14,7 @@ export default {
     })
     const { body, statusCode } = await _requestObj.promise
     if (statusCode != 200 || body.code !== 0) throw new Error('获取热搜词失败')
-    // console.log(body)
+    console.log(body)
     return { source: 'tx', list: this.filterList(body.data.hotkey) }
   },
   filterList(rawList) {

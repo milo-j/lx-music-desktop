@@ -4,14 +4,24 @@ import { headers, timeout } from '../options'
 
 const api_test = {
   getMusicUrl(songInfo, type) {
+    console.log(songInfo)
+    /*
     const requestObj = httpFetch(`http://ts.tempmusic.tk/url/wy/${songInfo.songmid}/${type}`, {
       method: 'get',
       timeout,
       headers,
       family: 4,
     })
+    */
+    const requestObj = httpFetch(` http://music.163.com/api/song/enhance/player/url?id=${songInfo.songmid}&ids=%5B${songInfo.songmid}%5D&br=3200000`, {
+      method: 'get',
+      timeout,
+      headers,
+      family: 4,
+    })
     requestObj.promise = requestObj.promise.then(({ body }) => {
-      return body.code === 0 ? Promise.resolve({ type, url: body.data }) : Promise.reject(new Error(requestMsg.fail))
+      console.log(body)
+      return body.data[0].url !== '' ? Promise.resolve({ type, url: body.data[0].url }) : Promise.reject(new Error(requestMsg.fail))
     })
     return requestObj
   },

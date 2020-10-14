@@ -136,7 +136,7 @@ export default {
         name: item.songName,
         albumName: item.album,
         albumId: item.albumId,
-        songmid: item.copyrightId,
+        songmid: item.songId,
         copyrightId: item.copyrightId,
         source: 'mg',
         interval: null,
